@@ -107,7 +107,7 @@
                 <label for="express" class="font-semibold">Express Shipping</label>
                 <p class="text-gray-600">1-2 business days</p>
               </div>
-              <span class="ml-auto font-semibold">$14.99</span>
+              <span class="ml-auto font-semibold">₹1,249.99</span>
             </div>
           </div>
 
@@ -139,7 +139,7 @@
                 <h3 class="font-semibold">Modern Sofa Set</h3>
                 <p class="text-gray-600">Qty: 1</p>
               </div>
-              <span class="ml-auto font-semibold">$899</span>
+              <span class="ml-auto font-semibold">₹899</span>
             </div>
             <div class="flex items-center">
               <img src="https://cdn.pixabay.com/photo/2017/03/28/12/10/chair-2181947_1280.jpg" alt="Designer Chair" class="w-16 h-16 object-cover rounded">
@@ -147,14 +147,14 @@
                 <h3 class="font-semibold">Designer Chair</h3>
                 <p class="text-gray-600">Qty: 2</p>
               </div>
-              <span class="ml-auto font-semibold">$598</span>
+              <span class="ml-auto font-semibold">₹598</span>
             </div>
           </div>
 
           <div class="border-t pt-4 space-y-3">
             <div class="flex justify-between">
               <span class="text-gray-600">Subtotal</span>
-              <span>$1,497</span>
+              <span>₹1,497</span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Shipping</span>
@@ -162,11 +162,11 @@
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Tax</span>
-              <span>$149.70</span>
+              <span>₹149.70</span>
             </div>
             <div class="border-t pt-3 flex justify-between font-bold">
               <span>Total</span>
-              <span>$1,646.70</span>
+              <span>₹1,646.70</span>
             </div>
           </div>
         </div>
@@ -174,4 +174,4 @@
     </div>
   </div>
 </section>
-@endsection 
+@endsection

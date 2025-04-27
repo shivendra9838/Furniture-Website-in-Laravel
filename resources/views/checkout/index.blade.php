@@ -78,7 +78,7 @@
                                 <h3 class="font-semibold">{{ $item->product->name }}</h3>
                                 <p class="text-gray-600">Qty: {{ $item->quantity }}</p>
                             </div>
-                            <span class="ml-auto font-semibold">${{ number_format($item->quantity * $item->product->price, 2) }}</span>
+                            <span class="ml-auto font-semibold">₹{{ number_format($item->quantity * $item->product->price, 2) }}</span>
                         </div>
                     @endforeach
                 </div>
@@ -86,7 +86,7 @@
                 <div class="border-t pt-4 space-y-3">
                     <div class="flex justify-between">
                         <span class="text-gray-600">Subtotal</span>
-                        <span>${{ number_format($total, 2) }}</span>
+                        <span>₹{{ number_format($total, 2) }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-600">Shipping</span>
@@ -94,15 +94,15 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-gray-600">Tax</span>
-                        <span>${{ number_format($total * 0.1, 2) }}</span>
+                        <span>₹{{ number_format($total * 0.1, 2) }}</span>
                     </div>
                     <div class="border-t pt-3 flex justify-between font-bold">
                         <span>Total</span>
-                        <span>${{ number_format($total + ($total * 0.1), 2) }}</span>
+                        <span>₹{{ number_format($total + ($total * 0.1), 2) }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection 
+@endsection

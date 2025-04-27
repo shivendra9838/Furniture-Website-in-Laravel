@@ -33,7 +33,7 @@
             <span class="text-gray-600 ml-2">(24 reviews)</span>
           </div>
 
-          <p class="text-2xl font-bold mb-4">$899</p>
+          <p class="text-2xl font-bold mb-4">₹8,000</p>
           
           <p class="text-gray-600 mb-6">Premium 3-seater sofa set with high-quality fabric upholstery. Perfect for modern living rooms, offering both comfort and style.</p>
 
@@ -118,7 +118,7 @@
         <img src="https://cdn.pixabay.com/photo/2017/03/28/12/10/chair-2181947_1280.jpg" alt="Related Product" class="w-full h-48 object-cover">
         <div class="p-4">
           <h3 class="font-semibold mb-2">Matching Armchair</h3>
-          <p class="text-gray-600 mb-2">$299</p>
+          <p class="text-gray-600 mb-2">₹2,990</p>
           <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Add to Cart</button>
         </div>
       </div>
@@ -126,4 +126,4 @@
     </div>
   </div>
 </section>
-@endsection 
+@endsection

@@ -36,7 +36,7 @@
         <h3 class="font-semibold text-lg mb-2">{{ $product->name }}</h3>
         <p class="text-gray-600 mb-2">{{ $product->description }}</p>
         <div class="flex justify-between items-center">
-          <span class="text-blue-600 font-bold">${{ number_format($product->price, 2) }}</span>
+          <span class="text-blue-600 font-bold">₹{{ number_format($product->price, 2) }}</span>
           <a href="{{ route('products.show', $product) }}" class="text-blue-600 hover:text-blue-800 transition duration-300">View Details</a>
         </div>
       </div>
@@ -53,11 +53,22 @@
   <div class="max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-6 text-center">Shop by Category</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      @php
+          $categoryImages = [
+              'livingroom' => 'https://images.unsplash.com/photo-1615874959474-d609969a30c4',
+              'diningroom' => 'https://images.unsplash.com/photo-1615873968403-89ce3e7d7992',
+              'bedroom' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+              'kitchen' => 'https://images.unsplash.com/photo-1605450346535-13943aa847b5',
+              'office' => 'https://images.unsplash.com/photo-1593642532973-d31b6557fa68',
+              'bathroom' => 'https://images.unsplash.com/photo-1605559424843-8f58a6ae9681',
+          ];
+      @endphp
+
       @foreach($categories as $category)
       <a href="{{ route('products.index', ['category' => $category->id]) }}" class="group">
         <div class="bg-white rounded-lg shadow p-4 text-center hover:shadow-lg transition-shadow duration-300">
           <div class="w-20 h-20 mx-auto mb-2 rounded-full overflow-hidden">
-            <img src="{{ asset('images/categories/' . $category->slug . '.jpg') }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
+            <img src="{{ $categoryImages[$category->slug] ?? 'https://via.placeholder.com/300' }}" alt="{{ $category->name }}" class="w-full h-full object-cover">
           </div>
           <h3 class="font-semibold text-lg group-hover:text-blue-600 transition duration-300">{{ $category->name }}</h3>
         </div>
@@ -132,20 +143,43 @@
   <div class="max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold mb-6 text-center">What Our Customers Say</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      @php
+          $testimonials = [
+              [
+                  'name' => 'Aarav Sharma',
+                  'avatar' => 'https://i.pravatar.cc/150?img=1',
+                  'rating' => 5,
+                  'comment' => 'The furniture quality is excellent, and the customization options are amazing. Highly recommended!',
+              ],
+              [
+                  'name' => 'Isha Patel',
+                  'avatar' => 'https://i.pravatar.cc/150?img=2',
+                  'rating' => 4,
+                  'comment' => 'I loved the dining table I ordered. It fits perfectly in my home and looks stunning!',
+              ],
+              [
+                  'name' => 'Rohan Gupta',
+                  'avatar' => 'https://i.pravatar.cc/150?img=3',
+                  'rating' => 5,
+                  'comment' => 'The room planner tool helped me visualize my space. The delivery was on time, and the product is fantastic!',
+              ],
+          ];
+      @endphp
+
       @foreach($testimonials as $testimonial)
       <div class="bg-white p-6 rounded-lg shadow-lg">
         <div class="flex items-center mb-4">
-          <img src="{{ $testimonial->avatar }}" alt="{{ $testimonial->name }}" class="w-12 h-12 rounded-full mr-4">
+          <img src="{{ $testimonial['avatar'] }}" alt="{{ $testimonial['name'] }}" class="w-12 h-12 rounded-full mr-4">
           <div>
-            <h4 class="font-semibold">{{ $testimonial->name }}</h4>
+            <h4 class="font-semibold">{{ $testimonial['name'] }}</h4>
             <div class="flex text-yellow-400">
-              @for($i = 0; $i < $testimonial->rating; $i++)
+              @for($i = 0; $i < $testimonial['rating']; $i++)
                 ★
               @endfor
             </div>
           </div>
         </div>
-        <p class="text-gray-600">{{ $testimonial->comment }}</p>
+        <p class="text-gray-600">{{ $testimonial['comment'] }}</p>
       </div>
       @endforeach
     </div>

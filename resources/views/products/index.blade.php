@@ -38,7 +38,14 @@
                 @foreach($products as $product)
                     <div class="bg-white rounded-lg shadow overflow-hidden">
                         <div class="relative">
-                            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+                            @if($product->name === 'Standing Desk')
+                            <img src="{{ asset('images/products/desk.jpg') }}" alt="Standing Desk" class="w-full h-48 object-cover">
+
+                            @elseif($product->name === 'Electric height-adjustable standing desk')
+                                <img src="{{ asset('images/products/electric-standing-desk.jpg') }}" alt="Electric Standing Desk" class="w-full h-48 object-cover">
+                            @else
+                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+                            @endif
                             @if($product->is_customizable)
                                 <div class="absolute top-2 right-2 bg-blue-600 text-white px-2 py-1 rounded-full text-xs">
                                     Customizable
@@ -49,7 +56,23 @@
                             <h3 class="font-semibold text-lg mb-2">{{ $product->name }}</h3>
                             <p class="text-gray-600 mb-4">{{ Str::limit($product->description, 100) }}</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-blue-600 font-bold">${{ number_format($product->price, 2) }}</span>
+                                @if($product->name === 'Dining Chairs Set')
+                                    <span class="text-blue-600 font-bold">₹10,000</span>
+                                @elseif($product->name === 'Extendable Dining Table')
+                                    <span class="text-blue-600 font-bold">₹20,000</span>
+                                @elseif($product->name === 'Ergonomic Office Chair')
+                                    <span class="text-blue-600 font-bold">₹{{ number_format($product->price * 10, 2) }}</span>
+                                @elseif($product->name === 'Dresser with Mirror')
+                                    <span class="text-blue-600 font-bold">₹{{ number_format($product->price * 10, 2) }}</span>
+                                @elseif($product->name === 'Platform Bed')
+                                    <span class="text-blue-600 font-bold">₹{{ number_format($product->price * 10, 2) }}</span>
+                                @elseif($product->name === 'Chesterfield Sofa')
+                                    <span class="text-blue-600 font-bold">₹{{ number_format($product->price * 10, 2) }}</span>
+                                @elseif($product->name === 'Eames Lounge Chair')
+                                    <span class="text-blue-600 font-bold">₹12,000</span>
+                                @else
+                                    <span class="text-blue-600 font-bold">₹{{ number_format($product->price, 2) }}</span>
+                                @endif
                                 <a href="{{ route('products.show', $product) }}" class="text-blue-600 hover:text-blue-800">
                                     View Details
                                 </a>
@@ -66,4 +89,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

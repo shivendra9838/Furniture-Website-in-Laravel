@@ -8,9 +8,16 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
+
+//ContactController.php
+Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact.submit');
 // Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/room-planner', [RoomPlannerController::class, 'index'])->name('room-planner.index');
