@@ -1,8 +1,5 @@
 [phases.build]
-cmd = "composer install --no-dev --optimize-autoloader && npm ci && npm run build"
-
-[phases.install]
-cmds = ["apt-get update", "apt-get install -y php8.2-pgsql php8.2-mysql"]
+cmd = "npm run build"
 
 [start]
-cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
