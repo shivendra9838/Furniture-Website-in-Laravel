@@ -220,111 +220,9 @@ document.addEventListener('DOMContentLoaded', function() {
         totalAreaDisplay.textContent = `${length * width} sq ft`;
     }
 
-   his.classList.remove('opacity-50');
-        });
-    });
-
-    roomCanvas.addEventListener('dragover', function(e) {
-        e.preventDefault();
-    });
-
-    roomCanvas.addEventListener('drop', function(e) {
-        e.preventDefault();
-        const furnitureType = e.dataTransfer.getData('text/plain');
-        const rect = roomCanvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Create new furniture item
-        const newFurniture = document.createElement('div');
-        newFurniture.className = 'absolute w-16 h-16 bg-gray-200 rounded cursor-move';
-        newFurniture.style.left = x + 'px';
-        newFurniture.style.top = y + 'px';
-        newFurniture.draggable = true;
-        newFurniture.dataset.type = furnitureType;
-
-        // Add drag functionality to placed furniture
-        newFurniture.addEventListener('dragstart', function(e) {
-            e.dataTransfer.setData('text/plain', 'move');
-            this.classList.add('opacity-50');
-        });
-
-        newFurniture.addEventListener('dragend', function() {
-            this.classList.remove('opacity-50');
-        });
-
-        furnitureContainer.appendChild(newFurniture);
-        updateFurnitureCount();
-    });
-
-    // Wall color selection
-    wallColorBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const color = this.dataset.color;
-            roomCanvas.style.backgroundColor = `var(--tw-${color})`;
-            updateWallColorDisplay(color);
-        });
-    });
-
-    // Save design
-    saveDesignBtn.addEventListener('click', function() {
-        // Collect all furniture positions and room settings
-        const design = {
-            dimensions: {
-                length: document.getElementById('roomLength').value,
-                width: document.getElementById('roomWidth').value,
-                height: document.getElementById('roomHeight').value
-            },
-            wallColor: roomCanvas.style.backgroundColor,
-            floorType: floorTypeSelect.value,
-            furniture: Array.from(furnitureContainer.children).map(item => ({
-                type: item.dataset.type,
-                x: item.style.left,
-                y: item.style.top
-            }))
-        };
-
-        // Send to server
-        fetch('/room-planner/save', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify(design)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Design saved successfully!');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
-
-    // View 3D
-    view3DBtn.addEventListener('click', function() {
-        // Redirect to 3D view
-        window.location.href = '/room-planner/3d';
-    });
-
-    // Reset design
-    resetDesignBtn.addEventListener('click', function() {
-        if (confirm('Are you sure you want to reset the design?')) {
-            furnitureContainer.innerHTML = '';
-            document.getElementById('roomLength').value = '12';
-            document.getElementById('roomWidth').value = '10';
-            document.getElementById('roomHeight').value = '8';
-            roomCanvas.style.backgroundColor = 'var(--tw-gray-100)';
-            updateRoomMeasurements();
-            updateWallColorDisplay('gray-100');
-            updateFloorTypeDisplay('hardwood');
-            updateFurnitureCount();
-        }
-    });
-}); // Update wall color display
+    // Update wall color display
     function updateWallColorDisplay(color) {
-        wallColorDisplay.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+        wallColorDisplay.textContent = color.charAt(0).toUpperCase() + color.slice(1).replace('-', ' ');
     }
 
     // Update floor type display
@@ -353,11 +251,202 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialize measurements
+    // Drag and drop functionality for furniture items from library
+    furnitureItems.forEach(item => {
+        item.addEventListener('dragstart', function(e) {
+            e.dataTransfer.setData('text/plain', this.dataset.type);
+            this.classList.add('opacity-50');
+        });
+
+        item.addEventListener('dragend', function() {
+            this.classList.remove('opacity-50');
+        });
+    });
+
+    // Allow room canvas to accept drops
+    roomCanvas.addEventListener('dragover', function(e) {
+        e.preventDefault();
+    });
+
+    // Handle dropping furniture onto canvas
+    roomCanvas.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const furnitureType = e.dataTransfer.getData('text/plain');
+        
+        // Only create new furniture if it's not a move operation
+        if (furnitureType !== 'move') {
+            const rect = roomCanvas.getBoundingClientRect();
+            const x = e.clientX - rect.left - 32; // Center the item
+            const y = e.clientY - rect.top - 32;
+
+            // Create new furniture item on canvas
+            const newFurniture = document.createElement('div');
+            newFurniture.className = 'absolute w-16 h-16 bg-blue-300 border-2 border-blue-500 rounded cursor-move flex items-center justify-center text-xs font-bold text-blue-800';
+            newFurniture.style.left = Math.max(0, Math.min(x, roomCanvas.offsetWidth - 64)) + 'px';
+            newFurniture.style.top = Math.max(0, Math.min(y, roomCanvas.offsetHeight - 64)) + 'px';
+            newFurniture.draggable = true;
+            newFurniture.dataset.type = furnitureType;
+            newFurniture.textContent = furnitureType.charAt(0).toUpperCase();
+            newFurniture.title = furnitureType;
+
+            // Add double-click to remove
+            newFurniture.addEventListener('dblclick', function() {
+                if (confirm('Remove this furniture item?')) {
+                    this.remove();
+                    updateFurnitureCount();
+                }
+            });
+
+            // Add drag functionality to placed furniture for repositioning
+            newFurniture.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData('text/plain', 'move');
+                this.classList.add('opacity-50');
+                this.style.zIndex = '1000';
+                // Store original position for potential cancellation
+                this.dataset.originalX = this.style.left;
+                this.dataset.originalY = this.style.top;
+            });
+
+            newFurniture.addEventListener('dragend', function() {
+                this.classList.remove('opacity-50');
+                this.style.zIndex = 'auto';
+            });
+
+            furnitureContainer.appendChild(newFurniture);
+            updateFurnitureCount();
+        }
+    });
+
+    // Handle repositioning of existing furniture
+    furnitureContainer.addEventListener('dragover', function(e) {
+        e.preventDefault();
+    });
+
+    furnitureContainer.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const moveType = e.dataTransfer.getData('text/plain');
+        
+        if (moveType === 'move') {
+            const draggedElement = document.querySelector('.opacity-50');
+            if (draggedElement) {
+                const rect = roomCanvas.getBoundingClientRect();
+                const x = e.clientX - rect.left - 32;
+                const y = e.clientY - rect.top - 32;
+                
+                draggedElement.style.left = Math.max(0, Math.min(x, roomCanvas.offsetWidth - 64)) + 'px';
+                draggedElement.style.top = Math.max(0, Math.min(y, roomCanvas.offsetHeight - 64)) + 'px';
+            }
+        }
+    });
+
+    // Wall color selection
+    wallColorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const color = this.dataset.color;
+            // Remove active state from all buttons
+            wallColorBtns.forEach(b => b.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-500'));
+            // Add active state to clicked button
+            this.classList.add('ring-2', 'ring-offset-2', 'ring-blue-500');
+            
+            // Apply color to room canvas
+            roomCanvas.className = roomCanvas.className.replace(/bg-\w+-\d+/, '') + ` bg-${color}`;
+            updateWallColorDisplay(color);
+        });
+    });
+
+    // Save design
+    saveDesignBtn.addEventListener('click', function() {
+        // Collect all furniture positions and room settings
+        const design = {
+            dimensions: {
+                length: document.getElementById('roomLength').value,
+                width: document.getElementById('roomWidth').value,
+                height: document.getElementById('roomHeight').value
+            },
+            wallColor: roomCanvas.className.match(/bg-[\w-]+/) ? roomCanvas.className.match(/bg-[\w-]+/)[0] : 'bg-gray-100',
+            floorType: floorTypeSelect.value,
+            furniture: Array.from(furnitureContainer.children).map(item => ({
+                type: item.dataset.type,
+                x: item.style.left,
+                y: item.style.top
+            }))
+        };
+
+        // Send to server
+        fetch('/room-planner/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(design)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Design saved successfully!');
+            } else {
+                alert('Error saving design. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error saving design. Please try again.');
+        });
+    });
+
+    // View 3D
+    view3DBtn.addEventListener('click', function() {
+        // Pass current design data to 3D view
+        const design = {
+            dimensions: {
+                length: document.getElementById('roomLength').value,
+                width: document.getElementById('roomWidth').value,
+                height: document.getElementById('roomHeight').value
+            },
+            wallColor: roomCanvas.className.match(/bg-[\w-]+/) ? roomCanvas.className.match(/bg-[\w-]+/)[0] : 'bg-gray-100',
+            floorType: floorTypeSelect.value,
+            furniture: Array.from(furnitureContainer.children).map(item => ({
+                type: item.dataset.type,
+                x: item.style.left,
+                y: item.style.top
+            }))
+        };
+        
+        // Store design in session storage for 3D view
+        sessionStorage.setItem('roomDesign', JSON.stringify(design));
+        window.location.href = '/room-planner/3d';
+    });
+
+    // Reset design
+    resetDesignBtn.addEventListener('click', function() {
+        if (confirm('Are you sure you want to reset the design?')) {
+            furnitureContainer.innerHTML = '';
+            document.getElementById('roomLength').value = '12';
+            document.getElementById('roomWidth').value = '10';
+            document.getElementById('roomHeight').value = '8';
+            roomCanvas.className = roomCanvas.className.replace(/bg-\w+-\d+/, '') + ' bg-gray-100';
+            floorTypeSelect.value = 'hardwood';
+            
+            // Reset wall color button selection
+            wallColorBtns.forEach(b => b.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-500'));
+            wallColorBtns[0].classList.add('ring-2', 'ring-offset-2', 'ring-blue-500');
+            
+            updateRoomMeasurements();
+            updateWallColorDisplay('gray-100');
+            updateFloorTypeDisplay('hardwood');
+            updateFurnitureCount();
+        }
+    });
+
+    // Initialize measurements and displays
     updateRoomMeasurements();
-    updateWallColorDisplay('white');
+    updateWallColorDisplay('gray');
     updateFloorTypeDisplay(floorTypeSelect.value);
     updateFurnitureCount();
+    
+    // Set initial wall color button as active
+    wallColorBtns[0].classList.add('ring-2', 'ring-offset-2', 'ring-blue-500');
 
     // Event listeners for room dimensions
     document.getElementById('roomLength').addEventListener('change', updateRoomMeasurements);
@@ -371,16 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
     floorTypeSelect.addEventListener('change', function() {
         updateFloorTypeDisplay(this.value);
     });
-
-    // Drag and drop functionality
-    furnitureItems.forEach(item => {
-        item.addEventListener('dragstart', function(e) {
-            e.dataTransfer.setData('text/plain', this.dataset.type);
-            this.classList.add('opacity-50');
-        });
-
-        item.addEventListener('dragend', function() {
-            
+});
 </script>
 @endpush
 @endsection 
