@@ -29,19 +29,19 @@
           <div class="space-y-2">
             <div class="flex items-center">
               <input type="checkbox" id="price1" class="mr-2">
-              <label for="price1">Under $100</label>
+              <label for="price1">Under ₹10000</label>
             </div>
             <div class="flex items-center">
               <input type="checkbox" id="price2" class="mr-2">
-              <label for="price2">$100 - $500</label>
+              <label for="price2">₹1000 - ₹5000</label>
             </div>
             <div class="flex items-center">
               <input type="checkbox" id="price3" class="mr-2">
-              <label for="price3">$500 - $1000</label>
+              <label for="price3">₹5000 - ₹10000</label>
             </div>
             <div class="flex items-center">
               <input type="checkbox" id="price4" class="mr-2">
-              <label for="price4">Over $1000</label>
+              <label for="price4">Over ₹10000</label>
             </div>
           </div>
 
@@ -95,7 +95,7 @@
               <h3 class="font-semibold text-lg mb-2">Modern Sofa Set</h3>
               <p class="text-gray-600 mb-2">Comfortable 3-seater with premium fabric</p>
               <div class="flex justify-between items-center">
-                <span class="text-lg font-bold">$899</span>
+                <span class="text-lg font-bold">₹8,990</span>
                 <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Add to Cart</button>
               </div>
             </div>
@@ -110,7 +110,7 @@
               <h3 class="font-semibold text-lg mb-2">Designer Chair</h3>
               <p class="text-gray-600 mb-2">Ergonomic design with premium leather</p>
               <div class="flex justify-between items-center">
-                <span class="text-lg font-bold">$299</span>
+                <span class="text-lg font-bold">₹18,000</span>
                 <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Add to Cart</button>
               </div>
             </div>
@@ -126,7 +126,7 @@
               <h3 class="font-semibold text-lg mb-2">Luxury Bed</h3>
               <p class="text-gray-600 mb-2">King size with premium headboard</p>
               <div class="flex justify-between items-center">
-                <span class="text-lg font-bold">$1299</span>
+                <span class="text-lg font-bold">₹22,290</span>
                 <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Add to Cart</button>
               </div>
             </div>
@@ -149,4 +149,4 @@
     </div>
   </div>
 </section>
-@endsection 
+@endsection

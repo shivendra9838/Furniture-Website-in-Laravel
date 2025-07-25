@@ -4,9 +4,34 @@
 <div class="max-w-7xl mx-auto px-4 py-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Product Images -->
-        <div class="bg-white rounded-lg shadow-lg p-4">
-            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-auto rounded-lg">
-        </div>
+        <div class="bg-white rounded-lg shadow-lg p-4 relative overflow-hidden">
+    <img src="{{ $product->image_url }}" alt="{{ $product->name }}" 
+         class="w-full h-full object-cover rounded-lg transform transition-transform duration-300 ease-out" 
+         id="reactive-image">
+</div>
+
+<script>
+    const image = document.getElementById('reactive-image');
+
+    image.addEventListener('click', (e) => {
+        const { offsetWidth: width, offsetHeight: height } = image;
+        const { offsetX: x, offsetY: y } = e;
+        
+        // Calculate percentage movement
+        const moveX = ((x / width) - 0.5) * 20;  // Adjust 20 for more/less movement
+        const moveY = ((y / height) - 0.5) * 20; // Adjust 20 for more/less movement
+
+        // Apply the transformation
+        image.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        
+        // Optional: Add a smooth transition for the reset after click
+        setTimeout(() => {
+            image.style.transition = "transform 0.3s ease-out"; // Smooth transition for reset
+            image.style.transform = 'translate(0, 0)';
+        }, 200); // Reset after a delay (200ms)
+    });
+</script>
+
 
         <!-- Product Details -->
         <div class="bg-white rounded-lg shadow-lg p-6">
@@ -20,9 +45,9 @@
                 <span class="text-gray-600 ml-2">(24 reviews)</span>
             </div>
             <p class="text-gray-600 mb-4">{{ $product->description }}</p>
-            
+
             <div class="mb-6">
-                <span class="text-2xl font-bold text-blue-600">${{ number_format($product->price, 2) }}</span>
+                <span class="text-2xl font-bold text-blue-600">₹{{ number_format($product->price, 2) }}</span>
             </div>
 
             @if($product->is_customizable)
@@ -92,6 +117,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Product Specifications -->
+            <div class="border-t pt-6">
+                <h3 class="text-lg font-semibold mb-4">Product Specifications</h3>
+                <div class="space-y-4">
+                    <p class="text-gray-600">Made with high-quality materials to ensure long-lasting durability and performance.</p>
+                    <p class="text-gray-600">Ergonomically designed for optimal comfort and ease of use, suitable for home or office environments.</p>
+                </div>
+            </div>
+
+            <!-- Customer Reviews -->
+            <div class="border-t pt-6">
+                <h3 class="text-lg font-semibold mb-4">Customer Reviews</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-yellow-400">
+                            @for($i = 0; $i < 5; $i++)
+                                <i class="fas fa-star"></i>
+                            @endfor
+                        </div>
+                        <span class="text-gray-600 ml-2">5 stars</span>
+                    </div>
+                    <p class="text-gray-600">"This product has greatly improved my office space! I love the customizable options."</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -111,7 +161,7 @@
                                     {{ $relatedProduct->name }}
                                 </a>
                             </h3>
-                            <p class="text-blue-600 font-bold">${{ number_format($relatedProduct->price, 2) }}</p>
+                            <p class="text-blue-600 font-bold">₹{{ number_format($relatedProduct->price, 2) }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -133,4 +183,4 @@
         }
     }
 </script>
-@endsection 
+@endsection

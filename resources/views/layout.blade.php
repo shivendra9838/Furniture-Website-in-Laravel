@@ -102,10 +102,20 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-white">Contact Us</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white">Shipping & Returns</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white">Size Guide</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">MG MARG-Civil Lines, Prayagraj, 209601</li>
+                        <li class="text-gray-400">+91 98765 43210</li>
+                        <li class="text-gray-400">anupam9828@gmail.com</li>
                     </ul>
                 </div>
 

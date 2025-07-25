@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="col-span-2 text-center">
-                                    <span class="font-semibold">${{ number_format($item->product->price, 2) }}</span>
+                                    <span class="font-semibold">₹{{ number_format($item->product->price, 2) }}</span>
                                 </div>
                                 <div class="col-span-2">
                                     <form action="{{ route('cart.update', $item) }}" method="POST" class="flex items-center justify-center">
@@ -49,7 +49,7 @@
                                     </form>
                                 </div>
                                 <div class="col-span-2 text-center">
-                                    <span class="font-semibold">${{ number_format($item->quantity * $item->product->price, 2) }}</span>
+                                    <span class="font-semibold">₹{{ number_format($item->quantity * $item->product->price, 2) }}</span>
                                 </div>
                                 <div class="col-span-1 text-center">
                                     <form action="{{ route('cart.remove', $item) }}" method="POST">
@@ -86,7 +86,7 @@
                     <div class="space-y-3 mb-6">
                         <div class="flex justify-between">
                             <span class="text-gray-600">Subtotal</span>
-                            <span>${{ number_format($total, 2) }}</span>
+                            <span>₹{{ number_format($total, 2) }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-600">Shipping</span>
@@ -94,11 +94,11 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-gray-600">Tax</span>
-                            <span>${{ number_format($total * 0.1, 2) }}</span>
+                            <span>₹{{ number_format($total * 0.1, 2) }}</span>
                         </div>
                         <div class="border-t pt-3 flex justify-between font-bold">
                             <span>Total</span>
-                            <span>${{ number_format($total + ($total * 0.1), 2) }}</span>
+                            <span>₹{{ number_format($total + ($total * 0.1), 2) }}</span>
                         </div>
                     </div>
 
@@ -133,4 +133,4 @@
         input.form.submit();
     }
 </script>
-@endsection 
+@endsection

@@ -14,7 +14,7 @@
       <ul class="text-sm space-y-2">
         <li><strong>Address:</strong> 123 Modern Street, Delhi, India</li>
         <li><strong>Phone:</strong> +91 98765 43210</li>
-        <li><strong>Email:</strong> info@furnispace.com</li>
+        <li><strong>Email:</strong> anupam9828@gmail.com</li>
       </ul>
     </div>
   </div>

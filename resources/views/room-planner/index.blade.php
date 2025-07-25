@@ -220,65 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         totalAreaDisplay.textContent = `${length * width} sq ft`;
     }
 
-    // Update wall color display
-    function updateWallColorDisplay(color) {
-        wallColorDisplay.textContent = color.charAt(0).toUpperCase() + color.slice(1);
-    }
-
-    // Update floor type display
-    function updateFloorTypeDisplay(type) {
-        floorTypeDisplay.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-    }
-
-    // Update furniture count
-    function updateFurnitureCount() {
-        furnitureCountDisplay.textContent = furnitureContainer.children.length;
-    }
-
-    // Filter furniture items
-    function filterFurniture() {
-        const category = furnitureCategorySelect.value;
-        const search = furnitureSearch.value.toLowerCase();
-        
-        furnitureItems.forEach(item => {
-            const itemCategory = item.dataset.category;
-            const itemName = item.querySelector('.font-medium').textContent.toLowerCase();
-            
-            const categoryMatch = category === 'all' || itemCategory === category;
-            const searchMatch = itemName.includes(search);
-            
-            item.style.display = categoryMatch && searchMatch ? 'block' : 'none';
-        });
-    }
-
-    // Initialize measurements
-    updateRoomMeasurements();
-    updateWallColorDisplay('white');
-    updateFloorTypeDisplay(floorTypeSelect.value);
-    updateFurnitureCount();
-
-    // Event listeners for room dimensions
-    document.getElementById('roomLength').addEventListener('change', updateRoomMeasurements);
-    document.getElementById('roomWidth').addEventListener('change', updateRoomMeasurements);
-
-    // Event listeners for furniture filtering
-    furnitureCategorySelect.addEventListener('change', filterFurniture);
-    furnitureSearch.addEventListener('input', filterFurniture);
-
-    // Floor type change
-    floorTypeSelect.addEventListener('change', function() {
-        updateFloorTypeDisplay(this.value);
-    });
-
-    // Drag and drop functionality
-    furnitureItems.forEach(item => {
-        item.addEventListener('dragstart', function(e) {
-            e.dataTransfer.setData('text/plain', this.dataset.type);
-            this.classList.add('opacity-50');
-        });
-
-        item.addEventListener('dragend', function() {
-            this.classList.remove('opacity-50');
+   his.classList.remove('opacity-50');
         });
     });
 
@@ -380,7 +322,65 @@ document.addEventListener('DOMContentLoaded', function() {
             updateFurnitureCount();
         }
     });
-});
+}); // Update wall color display
+    function updateWallColorDisplay(color) {
+        wallColorDisplay.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+    }
+
+    // Update floor type display
+    function updateFloorTypeDisplay(type) {
+        floorTypeDisplay.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+    }
+
+    // Update furniture count
+    function updateFurnitureCount() {
+        furnitureCountDisplay.textContent = furnitureContainer.children.length;
+    }
+
+    // Filter furniture items
+    function filterFurniture() {
+        const category = furnitureCategorySelect.value;
+        const search = furnitureSearch.value.toLowerCase();
+        
+        furnitureItems.forEach(item => {
+            const itemCategory = item.dataset.category;
+            const itemName = item.querySelector('.font-medium').textContent.toLowerCase();
+            
+            const categoryMatch = category === 'all' || itemCategory === category;
+            const searchMatch = itemName.includes(search);
+            
+            item.style.display = categoryMatch && searchMatch ? 'block' : 'none';
+        });
+    }
+
+    // Initialize measurements
+    updateRoomMeasurements();
+    updateWallColorDisplay('white');
+    updateFloorTypeDisplay(floorTypeSelect.value);
+    updateFurnitureCount();
+
+    // Event listeners for room dimensions
+    document.getElementById('roomLength').addEventListener('change', updateRoomMeasurements);
+    document.getElementById('roomWidth').addEventListener('change', updateRoomMeasurements);
+
+    // Event listeners for furniture filtering
+    furnitureCategorySelect.addEventListener('change', filterFurniture);
+    furnitureSearch.addEventListener('input', filterFurniture);
+
+    // Floor type change
+    floorTypeSelect.addEventListener('change', function() {
+        updateFloorTypeDisplay(this.value);
+    });
+
+    // Drag and drop functionality
+    furnitureItems.forEach(item => {
+        item.addEventListener('dragstart', function(e) {
+            e.dataTransfer.setData('text/plain', this.dataset.type);
+            this.classList.add('opacity-50');
+        });
+
+        item.addEventListener('dragend', function() {
+            
 </script>
 @endpush
 @endsection 

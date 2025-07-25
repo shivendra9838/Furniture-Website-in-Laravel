@@ -30,7 +30,7 @@
                 </div>
               </div>
               <div class="col-span-2 text-center">
-                <span class="font-semibold">$899</span>
+                <span class="font-semibold">₹899</span>
               </div>
               <div class="col-span-2">
                 <div class="flex items-center justify-center">
@@ -40,7 +40,7 @@
                 </div>
               </div>
               <div class="col-span-2 text-center">
-                <span class="font-semibold">$899</span>
+                <span class="font-semibold">₹899</span>
               </div>
               <div class="col-span-1 text-center">
                 <button class="text-red-500 hover:text-red-700">
@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="col-span-2 text-center">
-                <span class="font-semibold">$299</span>
+                <span class="font-semibold">₹299</span>
               </div>
               <div class="col-span-2">
                 <div class="flex items-center justify-center">
@@ -73,7 +73,7 @@
                 </div>
               </div>
               <div class="col-span-2 text-center">
-                <span class="font-semibold">$598</span>
+                <span class="font-semibold">₹598</span>
               </div>
               <div class="col-span-1 text-center">
                 <button class="text-red-500 hover:text-red-700">
@@ -106,7 +106,7 @@
           <div class="space-y-3 mb-6">
             <div class="flex justify-between">
               <span class="text-gray-600">Subtotal</span>
-              <span>$1,497</span>
+              <span>₹1,497</span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Shipping</span>
@@ -114,11 +114,11 @@
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Tax</span>
-              <span>$149.70</span>
+              <span>₹149.70</span>
             </div>
             <div class="border-t pt-3 flex justify-between font-bold">
               <span>Total</span>
-              <span>$1,646.70</span>
+              <span>₹1,646.70</span>
             </div>
           </div>
 
@@ -147,4 +147,4 @@
     </div>
   </div>
 </section>
-@endsection 
+@endsection

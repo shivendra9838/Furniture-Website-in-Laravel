@@ -13,8 +13,8 @@
           <div class="flex items-center mb-6">
             <img src="https://i.pravatar.cc/60" alt="Profile" class="w-12 h-12 rounded-full">
             <div class="ml-4">
-              <h3 class="font-semibold">John Doe</h3>
-              <p class="text-gray-600 text-sm">john.doe@example.com</p>
+              <h3 class="font-semibold">Anupam Patel</h3>
+              <p class="text-gray-600 text-sm">anupumpatel233@gmail.com</p>
             </div>
           </div>
           
@@ -124,7 +124,7 @@
                     <td class="px-4 py-3">
                       <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Delivered</span>
                     </td>
-                    <td class="px-4 py-3">$1,646.70</td>
+                    <td class="px-4 py-3">₹1,646.70</td>
                     <td class="px-4 py-3">
                       <button class="text-blue-600 hover:text-blue-800">View Details</button>
                     </td>
@@ -135,7 +135,7 @@
                     <td class="px-4 py-3">
                       <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Processing</span>
                     </td>
-                    <td class="px-4 py-3">$899.00</td>
+                    <td class="px-4 py-3">₹899.00</td>
                     <td class="px-4 py-3">
                       <button class="text-blue-600 hover:text-blue-800">View Details</button>
                     </td>
@@ -149,4 +149,4 @@
     </div>
   </div>
 </section>
-@endsection 
+@endsection
