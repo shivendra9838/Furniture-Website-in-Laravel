@@ -1,5 +1,8 @@
 [phases.build]
 cmd = "npm run build"
 
+[phases.setup]
+cmds = ["chmod -R 775 storage bootstrap/cache"]
+
 [start]
 cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
